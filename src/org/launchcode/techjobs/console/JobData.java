@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -73,10 +74,10 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-
             String aValue = row.get(column);
+            String aValue1 = aValue.toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue1.contains(value)) {
                 jobs.add(row);
             }
         }
@@ -123,6 +124,62 @@ public class JobData {
             System.out.println("Failed to load job data");
             e.printStackTrace();
         }
-    }
+    }public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
+        // load data, if not already loaded
+        loadData();
+
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        {for (HashMap<String, String> row : allJobs){
+                for(Map.Entry<String, String> entry:row.entrySet()) {
+                    String key = entry.getKey();
+                    String aValue = row.get(key);
+                    //String aValue = row.get("employer");
+                    //String aValue1 = row.get("core competency");
+                   // String aValue2 = row.get("location");
+                   // String aValue3 = row.get("position type");
+                    String aValue1 = aValue.toLowerCase();
+                    if (aValue1.contains(value)) {
+                        jobs.add(row);
+                    }
+                    //if (aValue1.contains(value)) {
+                       // jobs.add(row);
+                    //}
+                   // if (aValue2.contains(value)) {
+                       // jobs.add(row);
+                    //}
+                    //if (aValue3.contains(value)) {
+                      //  jobs.add(row);
+                   // }
+                }
+        }return jobs;
+
+        }
+
+
+
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
